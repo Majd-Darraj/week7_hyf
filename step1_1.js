@@ -8,6 +8,5 @@ let newNumbers = numbers
     // double the odd numbers
     .map( (nr) => nr * 2);
 
-console.log('------Step 1------' + '\n' +"The doubled numbers are",
-    newNumbers[0] + ' and ' + newNumbers[1] +
-    '\n' + '------------------');
+console.log('------Step 1_1------' + '\n' +"The doubled numbers are",
+    newNumbers[0] + ' and ' + newNumbers[1]);
