@@ -2,23 +2,21 @@
 
 // Ajax function
 function getAjaxData(url, callback) {
-    // Create new ajax call with the js function called XMLHttpRequest
+    // Create new ajax call
     const request = new XMLHttpRequest();
     request.addEventListener('load', function () {
         // This in here is our callback function
-        // Check our server responsecode, 200 means ok, success: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+        // Check server status
         if (this.status === 200) {
             callback(JSON.parse(request.responseText));
         } else {
             console.log('Something is probably wrong with the url');
         }
     });
-
     request.addEventListener('error', function () {
         console.log('Server error like timeout');
     });
-
-    // initializes a request with an http method
+    // initializes a get request
     request.open("GET", url);
     // Sends the request
     request.send();
@@ -26,8 +24,30 @@ function getAjaxData(url, callback) {
 
 // 1     Give each movie a tag: Good (>=7), Average (4-6), Bad (0-3) based on the ratings.
 getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a99206bcb0ae8d0a4/raw/02d8bc9ec9a73e463b13c44df77a87255def5ab9/movies.json', moviesData => {
-        console.log(moviesData);
-    });
+    // console.log(moviesData);
+    // console.log(moviesData[0]);
+    const moviesEval = moviesData
+        .filter( movie => {
+            if (movie.rating >= 7)
+            {
+                // console.log('good', movie.rating)
+                return movie.evaluation = "Good";
+            }
+            else if ((movie.rating >= 4)
+                && (movie.rating <= 6))
+            {
+                // console.log('Average', movie)
+                return movie.evaluation = "Average";
+            }
+            else
+            {
+                // console.log('Bad', movie)
+                return movie.evaluation = "Bad";
+            }
+        });
+
+    console.log(moviesEval);
+});
 
 // 2     Calculate the average rating of all the movies.
 // 3     Count the total number of Good, Average and Bad movies.
