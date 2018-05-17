@@ -1,5 +1,6 @@
 // Week 7 homework - Step 1_2
 console.log('------Step 1_2------');
+
 // Ajax function
 function getAjaxData(url, callback) {
     // Create new ajax call
@@ -22,7 +23,7 @@ function getAjaxData(url, callback) {
     request.send();
 }
 
-/* *-*-* OPEN Request *-*-* */
+/* *-*-* OPENING Request *-*-* */
 getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a99206bcb0ae8d0a4/raw/02d8bc9ec9a73e463b13c44df77a87255def5ab9/movies.json', moviesData => {
     // console.log(moviesData);
 
@@ -33,8 +34,8 @@ getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a9920
                 // console.log('good', movie.rating)
                 return movie.evaluation = "Good";
             }
-            else if ((movie.rating >= 4)
-                && (movie.rating <= 6)) {
+            else if (movie.rating >= 4
+                && movie.rating < 7) {
                 // console.log('Average', movie)
                 return movie.evaluation = "Average";
             }
@@ -43,25 +44,49 @@ getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a9920
                 return movie.evaluation = "Bad";
             }
         });
-    // console.log(moviesEvaluated);
+    console.log(moviesEvaluated[0].evaluation);
 
 
     // 2- Calculate the average rating of all the movies.
-    /* Take the rating value and calculate the total value of all */
     let moviesTotalRating = moviesEvaluated
         .map(movieRating => movieRating.rating)
         .reduce((acc, rating) => {
-        return acc + rating;
-    });
+            return acc + rating;
+        });
     // console.log(moviesTotalRating);
     let moviesAverageRating = (moviesTotalRating / moviesEvaluated.length).toFixed(3);
-    console.log(moviesAverageRating);
+    console.log('The average rating of all movies is ' + moviesAverageRating);
 
 
+
+    // console.log(ratings);
     // 3- Count the total number of Good, Average and Bad movies.
-    /* 4- Count he number of movies containing the following keywords:
+    let goodMoviesArray =  moviesEvaluated.filter(function (goodMovie) {
+        if (goodMovie.evaluation === 'Good') {
+            return goodMovie;
+        }
+    });
+    let totalGoodMovies = goodMoviesArray.length;
+    console.log('Total Good movies are: ' + totalGoodMovies);
+
+    let averageMoviesArray =  moviesEvaluated.filter(function (AverageMovie) {
+        if (AverageMovie.evaluation === 'Average') {
+            return AverageMovie;
+        }
+    });
+    let totalAverageMovies = averageMoviesArray.length;
+    console.log('Total Average movies are: ' + totalAverageMovies);
+
+    let badMoviesArray =  moviesEvaluated.filter(function (BadMovie) {
+        if (BadMovie.evaluation === 'Bad') {
+            return BadMovie;
+        }
+    });
+    let totalBadMovies = badMoviesArray.length;
+    console.log('Total Bad movies are: ' + totalBadMovies);
+    /* 4- Count the number of movies containing the following keywords:
           ["The", "dog", "who", "is", "not", "a", "man"].
           Can you make sure the search is case insensitive? */
     // 5- Count the number of movies made between 1980-1989 (including both the years).
 
-}); /* *-*-* CLOSE Request *-*-* */
+});/* *-*-* CLOSING Request *-*-* */
