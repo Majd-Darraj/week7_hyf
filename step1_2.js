@@ -57,36 +57,38 @@ getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a9920
     let moviesAverageRating = (moviesTotalRating / moviesEvaluated.length).toFixed(3);
     console.log('The average rating of all movies is ' + moviesAverageRating);
 
-
-
-    // console.log(ratings);
     // 3- Count the total number of Good, Average and Bad movies.
-    let goodMoviesArray =  moviesEvaluated.filter(function (goodMovie) {
-        if (goodMovie.evaluation === 'Good') {
-            return goodMovie;
-        }
-    });
-    let totalGoodMovies = goodMoviesArray.length;
-    console.log('Total Good movies are: ' + totalGoodMovies);
+    // GOOD movies number
+    let goodMoviesTotal = moviesEvaluated
+        .map(movieEval => movieEval.evaluation === 'Good')
+        .reduce((acc, goodMovie) => {
+            return acc + goodMovie;
+        });
+    console.log('Total Good movies are: ' + goodMoviesTotal);
+    // AVERAGE movies number
+    let averageMoviesTotal = moviesEvaluated
+        .map(movieEval => movieEval.evaluation === 'Average')
+        .reduce((acc, averageMovie) => {
+            return acc + averageMovie;
+        });
+    console.log('Total Average movies are: ' + averageMoviesTotal);
+    // BAD movies number
+    let badMoviesTotal = moviesEvaluated
+        .map(movieEval => movieEval.evaluation === 'Bad')
+        .reduce((acc, badMovie) => {
+            return acc + badMovie;
+        });
+    console.log('Total Good movies are: ' + badMoviesTotal);
 
-    let averageMoviesArray =  moviesEvaluated.filter(function (AverageMovie) {
-        if (AverageMovie.evaluation === 'Average') {
-            return AverageMovie;
-        }
-    });
-    let totalAverageMovies = averageMoviesArray.length;
-    console.log('Total Average movies are: ' + totalAverageMovies);
 
-    let badMoviesArray =  moviesEvaluated.filter(function (BadMovie) {
-        if (BadMovie.evaluation === 'Bad') {
-            return BadMovie;
-        }
-    });
-    let totalBadMovies = badMoviesArray.length;
-    console.log('Total Bad movies are: ' + totalBadMovies);
     /* 4- Count the number of movies containing the following keywords:
           ["The", "dog", "who", "is", "not", "a", "man"].
           Can you make sure the search is case insensitive? */
+    let moviesWithKeywords = moviesEvaluated.map(movie => movie.title);
+    // console.log(moviesWithKeywords);
+
+
+
     // 5- Count the number of movies made between 1980-1989 (including both the years).
 
 });/* *-*-* CLOSING Request *-*-* */
