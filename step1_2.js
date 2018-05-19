@@ -101,7 +101,13 @@ getAjaxData('https://gist.githubusercontent.com/pankaj28843/08f397fcea7c760a9920
 
 
     // 5- Count the number of movies made between 1980-1989 (including both the years).
-    
+    let moviesByYear = moviesData.filter(movie => {
+        if (movie.year >= "1980" && movie.year <= "1989") {
+            return true
+        }
+    });
+    console.log(moviesByYear);
+
 
 });
 /* *-*-* CLOSING Request *-*-* */
